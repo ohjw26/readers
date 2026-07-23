@@ -71,8 +71,12 @@
 
                 <!-- Desktop Navigation Menu -->
                 <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-                    <a href="#about" class="text-slate-300 hover:text-amber-400 transition-colors">동호회 소개</a>
+                    <a href="#about" class="text-slate-300 hover:textamber-400 transition-colors">동호회 소개</a>
                     <a href="#info" class="text-slate-300 hover:text-amber-400 transition-colors">모임 정보</a>
+                    <a href="#ai-lounge" class="text-amber-400 font-semibold hover:text-amber-300 transition-colors flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                        AI 북 라운지
+                    </a>
                     <a href="#program" class="text-slate-300 hover:text-amber-400 transition-colors">진행 방식</a>
                     <a href="#activities" class="text-slate-300 hover:text-amber-400 transition-colors">활동 모아보기</a>
                     <a href="#benefits" class="text-slate-300 hover:text-amber-400 transition-colors">참여 혜택</a>
@@ -99,6 +103,7 @@
         <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
             <a href="#about" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">동호회 소개</a>
             <a href="#info" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">모임 정보</a>
+            <a href="#ai-lounge" class="mobile-link block px-3 py-2 rounded-md text-base font-bold text-amber-400 bg-amber-500/10 hover:bg-slate-800">✨ AI 북 라운지</a>
             <a href="#program" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">진행 방식</a>
             <a href="#activities" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">활동 모아보기</a>
             <a href="#benefits" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">참여 혜택</a>
@@ -306,6 +311,144 @@
                             </p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Lighthouse Lounge (Gemini API Integration) -->
+    <section id="ai-lounge" class="py-20 sm:py-28 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 text-white relative overflow-hidden border-t border-b border-amber-500/20">
+        <!-- Background Lighting -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 text-xs font-semibold mb-3">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                    POWERED BY GEMINI AI
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    등대 AI 스마트 북 라운지
+                </h2>
+                <p class="text-slate-400 mt-3 text-sm sm:text-base leading-relaxed">
+                    Gemini AI가 추천하는 맞춤 도서, 토론 발제문, 그리고 핵심 책 요약을 경험해보세요.<br class="hidden sm:inline">
+                    (주)제주비 임직원 여러분의 알찬 독서 모임을 스마트하게 보조합니다.
+                </p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex justify-center mb-8">
+                <div class="bg-slate-800/80 p-1.5 rounded-2xl border border-slate-700/80 flex flex-wrap sm:flex-nowrap gap-1 text-xs sm:text-sm font-semibold max-w-full overflow-x-auto">
+                    <button id="tab-btn-recommend" onclick="switchAiTab('recommend')" class="ai-tab-btn px-5 py-2.5 rounded-xl transition-all duration-200 bg-amber-500 text-slate-950 shadow-md">
+                        💡 AI 맞춤 도서 추천
+                    </button>
+                    <button id="tab-btn-questions" onclick="switchAiTab('questions')" class="ai-tab-btn px-5 py-2.5 rounded-xl transition-all duration-200 text-slate-300 hover:text-white">
+                        💬 토론 질문 AI 생성
+                    </button>
+                    <button id="tab-btn-summary" onclick="switchAiTab('summary')" class="ai-tab-btn px-5 py-2.5 rounded-xl transition-all duration-200 text-slate-300 hover:text-white">
+                        📝 3분 책 요약 & 인사이트
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab 1: AI Book Recommendation -->
+            <div id="ai-panel-recommend" class="ai-panel bg-slate-900/90 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <span>📚 어떤 책을 읽고 싶으신가요?</span>
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1">관심 분야, 최근 고민, 또는 직무/취미 관련 키워드를 입력하시면 맞춤 도서를 추천해 드립니다.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="ai-rec-input" placeholder="예: 리더십과 팀 소통, 스트레스 관리, 신사업 아이디어, 인공지능 트렌드" class="flex-1 bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-sm rounded-xl px-4 py-3.5 outline-none transition-all placeholder-slate-500">
+                        <button onclick="generateAiRecommendation()" id="ai-rec-btn" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3.5 rounded-xl text-sm transition-all flex items-center justify-center gap-2 whitespace-nowrap shadow-lg shadow-amber-500/20">
+                            <span>도서 추천받기</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </button>
+                    </div>
+                    <!-- Preset Badges -->
+                    <div class="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-400">
+                        <span class="text-slate-500 font-medium">추천 키워드:</span>
+                        <button onclick="setAiRecKeyword('효율적인 리더십과 커뮤니케이션')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 text-slate-300">#리더십소통</button>
+                        <button onclick="setAiRecKeyword('업무 생산성과 집중력 향상')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 text-slate-300">#생산성</button>
+                        <button onclick="setAiRecKeyword('힐링과 마음 챙김 인문학')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 text-slate-300">#마음챙김</button>
+                        <button onclick="setAiRecKeyword('AI 시대의 비즈니스 혁신')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 text-slate-300">#AI혁신</button>
+                    </div>
+                </div>
+                <!-- Result Box -->
+                <div id="ai-rec-result" class="mt-6 hidden bg-slate-950/80 border border-slate-800 rounded-2xl p-6 relative">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3">
+                        <span class="text-xs font-bold text-amber-400 tracking-wider uppercase flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-amber-400"></span> Gemini AI 큐레이션 결과
+                        </span>
+                        <button onclick="copyToClipboard('ai-rec-content')" class="text-xs text-slate-400 hover:text-amber-400 flex items-center gap-1 bg-slate-800 px-2.5 py-1 rounded-lg transition-colors">
+                            📋 결과 복사
+                        </button>
+                    </div>
+                    <div id="ai-rec-content" class="text-sm text-slate-200 leading-relaxed whitespace-pre-line font-sans"></div>
+                </div>
+            </div>
+
+            <!-- Tab 2: AI Discussion Questions Generator -->
+            <div id="ai-panel-questions" class="ai-panel hidden bg-slate-900/90 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <span>💬 독서 토론 발제문 및 질문 생성기</span>
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1">금요일 모임에서 다룰 책 제목이나 주제를 입력하시면 알찬 토론 발제문과 질문 리스트를 만들어드립니다.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="ai-q-input" placeholder="예: 도파민 네이션, 사피엔스, 원씽, 아토믹 습관" class="flex-1 bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-sm rounded-xl px-4 py-3.5 outline-none transition-all placeholder-slate-500">
+                        <button onclick="generateAiQuestions()" id="ai-q-btn" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3.5 rounded-xl text-sm transition-all flex items-center justify-center gap-2 whitespace-nowrap shadow-lg shadow-amber-500/20">
+                            <span>발제문 생성하기</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 4.418 9 8z"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                <!-- Result Box -->
+                <div id="ai-q-result" class="mt-6 hidden bg-slate-950/80 border border-slate-800 rounded-2xl p-6 relative">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3">
+                        <span class="text-xs font-bold text-amber-400 tracking-wider uppercase flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-amber-400"></span> 금요일 등대 모임 발제문가이드
+                        </span>
+                        <button onclick="copyToClipboard('ai-q-content')" class="text-xs text-slate-400 hover:text-amber-400 flex items-center gap-1 bg-slate-800 px-2.5 py-1 rounded-lg transition-colors">
+                            📋 결과 복사
+                        </button>
+                    </div>
+                    <div id="ai-q-content" class="text-sm text-slate-200 leading-relaxed whitespace-pre-line font-sans"></div>
+                </div>
+            </div>
+
+            <!-- Tab 3: AI 3-Min Book Summary & Workplace Insights -->
+            <div id="ai-panel-summary" class="ai-panel hidden bg-slate-900/90 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <span>📝 3분 책 핵심 요약 & (주)제주비 인사이트</span>
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1">시간이 부족한 임직원을 위해 Gemini AI가 책의 핵심 메시지와 실무 적용 포인트를 요약해 드립니다.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="ai-sum-input" placeholder="예: 구글 엔지니어는 이렇게 일한다, 스위치, 트렌드 코리아" class="flex-1 bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-sm rounded-xl px-4 py-3.5 outline-none transition-all placeholder-slate-500">
+                        <button onclick="generateAiSummary()" id="ai-sum-btn" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3.5 rounded-xl text-sm transition-all flex items-center justify-center gap-2 whitespace-nowrap shadow-lg shadow-amber-500/20">
+                            <span>핵심 요약하기</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                <!-- Result Box -->
+                <div id="ai-sum-result" class="mt-6 hidden bg-slate-950/80 border border-slate-800 rounded-2xl p-6 relative">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3">
+                        <span class="text-xs font-bold text-amber-400 tracking-wider uppercase flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-amber-400"></span> 3분 요약 및 사내 적용 포인트
+                        </span>
+                        <button onclick="copyToClipboard('ai-sum-content')" class="text-xs text-slate-400 hover:text-amber-400 flex items-center gap-1 bg-slate-800 px-2.5 py-1 rounded-lg transition-colors">
+                            📋 결과 복사
+                        </button>
+                    </div>
+                    <div id="ai-sum-content" class="text-sm text-slate-200 leading-relaxed whitespace-pre-line font-sans"></div>
                 </div>
             </div>
         </div>
@@ -638,7 +781,7 @@
 
     <!-- Success Modal Layer -->
     <div id="success-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl space-y-5 animate-fade-in">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl space-y-5">
             <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl font-bold">
                 ✓
             </div>
@@ -670,8 +813,190 @@
 
     <!-- Interactive JavaScript -->
     <script>
-        // 구글 앱스스크립트 배포 웹 앱 URL (새로 배포한 URL이 있다면 아래 큰따옴표 안에 넣어주세요)
+        // 구글 앱스스크립트 배포 웹 앱 URL
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoR-vwmu_PNmT2VeekX55dM3M0OxfVnTnkvySBxFivU5uekgOb5-r0w7Si4sW-V_gFhg/exec';
+
+        // Gemini API Config
+        const GEMINI_API_KEY = ""; // Canvas runtime provides standard key when empty
+        const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
+
+        // Tab Switching Logic for AI Lounge
+        function switchAiTab(tabName) {
+            document.querySelectorAll('.ai-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-slate-950', 'shadow-md');
+                btn.classList.add('text-slate-300');
+            });
+            document.querySelectorAll('.ai-panel').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+            const activePanel = document.getElementById(`ai-panel-${tabName}`);
+
+            if (activeBtn && activePanel) {
+                activeBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-md');
+                activeBtn.classList.remove('text-slate-300');
+                activePanel.classList.remove('hidden');
+            }
+        }
+
+        function setAiRecKeyword(keyword) {
+            document.getElementById('ai-rec-input').value = keyword;
+            generateAiRecommendation();
+        }
+
+        // Generic Gemini API Fetcher with exponential backoff retry logic
+        async function callGeminiApi(prompt, systemInstruction) {
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: systemInstruction }] }
+            };
+
+            let retries = 0;
+            const maxRetries = 3;
+            let delay = 1000;
+
+            while (retries <= maxRetries) {
+                try {
+                    const response = await fetch(GEMINI_API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API error HTTP ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text) {
+                        return text;
+                    } else {
+                        throw new Error('Empty response from model');
+                    }
+                } catch (error) {
+                    if (retries === maxRetries) {
+                        throw error;
+                    }
+                    retries++;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        // Feature 1: AI Book Recommendation
+        async function generateAiRecommendation() {
+            const input = document.getElementById('ai-rec-input').value.trim() || '직장인 성장과 리더십';
+            const btn = document.getElementById('ai-rec-btn');
+            const resultBox = document.getElementById('ai-rec-result');
+            const contentDiv = document.getElementById('ai-rec-content');
+
+            btn.disabled = true;
+            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-slate-950 inline-block" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> AI 분석 중...`;
+            resultBox.classList.remove('hidden');
+            contentDiv.innerHTML = '<span class="text-slate-400 animate-pulse">Gemini AI가 제주비 독서 모임에 꼭 맞는 최적의 책을 선별하고 있습니다...</span>';
+
+            const systemInstruction = "당신은 (주)제주비 사내 독서동호회 '등대독서회'의 전문 AI 북 큐레이터입니다. 친절하고 전문적인 톤으로, 입력된 키워드/고민에 맞춰 사내 독서회에서 읽기 좋은 검증된 책 3권을 추천해 주세요. 각 도서별로 1) 도서명과 저자, 2) 추천 이유, 3) (주)제주비 사내 토론 포인트 1가지를 정돈된 이모지와 함께 명확히 작성해주세요.";
+            const prompt = `주제/키워드: "${input}"\n\n위 주제에 맞춰 사내 독서회용으로 적합한 추천 도서 3권을 추천해줘.`;
+
+            try {
+                const result = await callGeminiApi(prompt, systemInstruction);
+                contentDiv.innerHTML = formatMarkdownText(result);
+            } catch (err) {
+                console.error(err);
+                contentDiv.innerHTML = '<span class="text-rose-400">⚠️ AI 추천 생성 도중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.</span>';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>도서 추천받기</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`;
+            }
+        }
+
+        // Feature 2: AI Discussion Questions Generator
+        async function generateAiQuestions() {
+            const input = document.getElementById('ai-q-input').value.trim() || '도파민 네이션';
+            const btn = document.getElementById('ai-q-btn');
+            const resultBox = document.getElementById('ai-q-result');
+            const contentDiv = document.getElementById('ai-q-content');
+
+            btn.disabled = true;
+            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-slate-950 inline-block" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> 발제문 작성 중...`;
+            resultBox.classList.remove('hidden');
+            contentDiv.innerHTML = '<span class="text-slate-400 animate-pulse">Gemini AI가 금요일 점심 런치 모임용 맞춤형 질문과 토론 아젠다를 구성 중입니다...</span>';
+
+            const systemInstruction = "당신은 (주)제주비 '등대독서회'의 대표 발제자입니다. 입력받은 도서(또는 주제)를 바탕으로 금요일 점심 독서모임(2시간)에서 활용할 완성도 높은 토론 발제문을 구성해주세요. 1) 한 줄 주제 요약, 2) 아이스브레이킹 가벼운 질문 1개, 3) 깊이 있는 본 토론 질문 3개, 4) (주)제주비 업무 현장 적용 질문 1개를 가독성 좋게 작성해 주세요.";
+            const prompt = `도서명/주제: "${input}"\n\n이 책으로 독서 모임을 진행할 때 사용할 발제문과 토론 질문을 작성해줘.`;
+
+            try {
+                const result = await callGeminiApi(prompt, systemInstruction);
+                contentDiv.innerHTML = formatMarkdownText(result);
+            } catch (err) {
+                console.error(err);
+                contentDiv.innerHTML = '<span class="text-rose-400">⚠️ 발제문 생성 도중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.</span>';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>발제문 생성하기</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 4.418 9 8z"></path></svg>`;
+            }
+        }
+
+        // Feature 3: AI 3-Min Summary & Workplace Insights
+        async function generateAiSummary() {
+            const input = document.getElementById('ai-sum-input').value.trim() || '원씽 (The One Thing)';
+            const btn = document.getElementById('ai-sum-btn');
+            const resultBox = document.getElementById('ai-sum-result');
+            const contentDiv = document.getElementById('ai-sum-content');
+
+            btn.disabled = true;
+            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-slate-950 inline-block" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> 3분 요약 생성 중...`;
+            resultBox.classList.remove('hidden');
+            contentDiv.innerHTML = '<span class="text-slate-400 animate-pulse">Gemini AI가 책의 핵심 정수와 제주비 사내 적용 포인트를 요약 중입니다...</span>';
+
+            const systemInstruction = "당신은 (주)제주비 사내 지식 관리자입니다. 바쁜 직장인들을 위해 지정된 책의 3분 핵심 요약본을 만들어주세요. 1) 한 줄 핵심 명언/메시지, 2) 핵심 요약 포인트 3가지, 3) (주)제주비 임직원이 당장 오늘 일터에서 실천할 수 있는 한 가지 행동 지침을 이모지와 함께 정돈된 스타일로 제공해주세요.";
+            const prompt = `도서명: "${input}"\n\n이 책의 핵심 요약과 사내 실무 적용 포인트를 작성해줘.`;
+
+            try {
+                const result = await callGeminiApi(prompt, systemInstruction);
+                contentDiv.innerHTML = formatMarkdownText(result);
+            } catch (err) {
+                console.error(err);
+                contentDiv.innerHTML = '<span class="text-rose-400">⚠️ 책 요약 생성 도중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.</span>';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>핵심 요약하기</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`;
+            }
+        }
+
+        // Helper to format basic markdown (bold, lists, code) into styled HTML
+        function formatMarkdownText(text) {
+            let formatted = text
+                .replace(/\*\*(.*?)\*\*/g, '<strong class="text-amber-300">$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em class="text-slate-300">$1</em>')
+                .replace(/`(.*?)`/g, '<code class="bg-slate-800 text-amber-400 px-1.5 py-0.5 rounded text-xs">$1</code>')
+                .replace(/^### (.*$)/gim, '<h4 class="text-base font-bold text-white mt-4 mb-2">$1</h4>')
+                .replace(/^## (.*$)/gim, '<h3 class="text-lg font-bold text-amber-400 mt-5 mb-2">$1</h3>')
+                .replace(/^# (.*$)/gim, '<h2 class="text-xl font-extrabold text-white mt-6 mb-3">$1</h2>');
+
+            return formatted;
+        }
+
+        // Helper to copy text to clipboard
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId)?.innerText || '';
+            if (!text) return;
+
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand('copy');
+                alert('결과가 클립보드에 복사되었습니다!');
+            } catch (err) {
+                console.error('복사 실패:', err);
+            }
+            document.body.removeChild(tempInput);
+        }
 
         // Mobile Menu Toggle Logic
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
